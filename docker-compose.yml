@@ -72,13 +72,13 @@ services:
 
 
   # * * * * apps * * * * #
-  gabber:
+  gabber-dev:
     image: jawrainey/gabber-server:0.1
     restart: unless-stopped
-    container_name: gabber
+    container_name: gabber-dev
     environment:
       VIRTUAL_HOST: dev.gabber.audio
       LETSENCRYPT_HOST: dev.gabber.audio
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
-    env_file: gabber.env
+    env_file: gabber-dev.env
 
