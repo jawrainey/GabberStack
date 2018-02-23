@@ -68,3 +68,5 @@ services:
       LETSENCRYPT_HOST: dev.gabber.audio
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
     env_file: gabber-dev.env
+    links:
+      - mysql
