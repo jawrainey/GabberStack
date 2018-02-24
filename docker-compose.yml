@@ -60,7 +60,7 @@ services:
       - mysql.env
 
   gabber-dev:
-    image: jawrainey/gabber-server:0.15
+    image: jawrainey/gabber-server:0.16
     restart: unless-stopped
     container_name: gabber-dev
     environment:
