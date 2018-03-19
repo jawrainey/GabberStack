@@ -65,7 +65,7 @@ services:
     restart: unless-stopped
     container_name: dev-api
     environment:
-      WEB_HOST: http://dev.gabber.audio
+      WEB_HOST: https://dev.gabber.audio
       VIRTUAL_HOST: api.dev.gabber.audio
       LETSENCRYPT_HOST: api.dev.gabber.audio
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
