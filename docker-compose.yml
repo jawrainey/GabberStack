@@ -60,14 +60,26 @@ services:
     env_file:
       - mysql.env
 
-  gabber-dev:
-    image: jawrainey/gabber-server:0.18
+  dev-api:
+    image: jawrainey/gabber-server:0.19
     restart: unless-stopped
-    container_name: gabber-dev
+    container_name: dev-api
     environment:
-      VIRTUAL_HOST: dev.gabber.audio
-      LETSENCRYPT_HOST: dev.gabber.audio
+      WEB_HOST: http://dev.gabber.audio
+      VIRTUAL_HOST: api.dev.gabber.audio
+      LETSENCRYPT_HOST: api.dev.gabber.audio
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
     env_file: gabber-dev.env
     links:
       - mysql
+  
+  dev-web:
+    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.1
+    restart: unless-stopped
+    container_name: dev-web
+    environment:
+      CONFIG_KEYS: API_URL
+      API_URL: https://api.dev.gabber.audio/api
+      VIRTUAL_HOST: dev.gabber.audio
+      LETSENCRYPT_HOST: dev.gabber.audio
+      LETSENCRYPT_EMAIL: gabber@jawrainey.me
