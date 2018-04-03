@@ -61,7 +61,7 @@ services:
       - mysql.env
 
   dev-api:
-    image: openlab.ncl.ac.uk:4567/gabber/api:1.0.0
+    image: openlab.ncl.ac.uk:4567/gabber/api:1.0.1
     restart: unless-stopped
     container_name: dev-api
     environment:
