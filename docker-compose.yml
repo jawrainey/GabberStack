@@ -61,7 +61,7 @@ services:
       - mysql.env
 
   dev-api:
-    image: openlab.ncl.ac.uk:4567/gabber/api:1.0.5
+    image: openlab.ncl.ac.uk:4567/gabber/api:1.0.6
     restart: unless-stopped
     container_name: dev-api
     environment:
@@ -74,7 +74,7 @@ services:
       - mysql
 
   dev-web:
-    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.12
+    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.14
     restart: unless-stopped
     container_name: dev-web
     environment:
@@ -85,7 +85,7 @@ services:
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
 
   ifrc-api:
-    image: openlab.ncl.ac.uk:4567/gabber/api:1.0.5
+    image: openlab.ncl.ac.uk:4567/gabber/api:1.0.6
     restart: unless-stopped
     container_name: ifrc-api
     environment:
@@ -98,7 +98,7 @@ services:
       - mysql
 
   ifrc-web:
-    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.12
+    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.14
     restart: unless-stopped
     container_name: ifrc-web
     environment:
