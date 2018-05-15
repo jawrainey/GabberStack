@@ -129,6 +129,7 @@ services:
     environment:
       CONFIG_KEYS: API_URL,ANALYTICS_ID
       API_URL: https://api.ifrc.gabber.audio/api
+      ANALYTICS_ID: UA-85374573-14
       VIRTUAL_HOST: ifrc.gabber.audio
       LETSENCRYPT_HOST: ifrc.gabber.audio
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
