@@ -74,7 +74,7 @@ services:
       - mysql
 
   main-web:
-    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.15
+    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.16
     restart: unless-stopped
     container_name: main-web
     environment:
