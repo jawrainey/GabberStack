@@ -80,7 +80,7 @@ services:
     environment:
       CONFIG_KEYS: API_URL,COMING_SOON
       API_URL: https://api.gabber.audio/api
-      COMING_SOON: true
+      COMING_SOON: 'true'
       VIRTUAL_HOST: gabber.audio
       LETSENCRYPT_HOST: gabber.audio
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
