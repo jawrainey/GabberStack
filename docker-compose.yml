@@ -59,6 +59,30 @@ services:
     command: '--character-set-server=utf8 --collation-server=utf8_unicode_ci'
     env_file:
       - mysql.env
+  
+  main-api:
+    image: gabber/api:0.0.1-beta
+    restart: unless-stopped
+    container_name: main-api
+    environment:
+      WEB_HOST: https://gabber.audio
+      VIRTUAL_HOST: api.gabber.audio
+      LETSENCRYPT_HOST: api.gabber.audio
+      LETSENCRYPT_EMAIL: gabber@jawrainey.me
+    env_file: gabber-main.env
+    links:
+      - mysql
+
+  main-web:
+    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.15
+    restart: unless-stopped
+    container_name: main-web
+    environment:
+      CONFIG_KEYS: API_URL
+      API_URL: https://api.gabber.audio/api
+      VIRTUAL_HOST: gabber.audio
+      LETSENCRYPT_HOST: gabber.audio
+      LETSENCRYPT_EMAIL: gabber@jawrainey.me
 
   dev-api:
     image: gabber/api:0.0.1-beta
@@ -74,7 +98,7 @@ services:
       - mysql
 
   dev-web:
-    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.14
+    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.15
     restart: unless-stopped
     container_name: dev-web
     environment:
@@ -98,7 +122,7 @@ services:
       - mysql
 
   ifrc-web:
-    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.14
+    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.15
     restart: unless-stopped
     container_name: ifrc-web
     environment:
