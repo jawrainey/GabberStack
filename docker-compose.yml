@@ -103,8 +103,9 @@ services:
     restart: unless-stopped
     container_name: dev-web
     environment:
-      CONFIG_KEYS: API_URL
+      CONFIG_KEYS: API_URL,IOS_APP_ID
       API_URL: https://api.dev.gabber.audio/api
+      IOS_APP_ID: 1356509623
       VIRTUAL_HOST: dev.gabber.audio
       LETSENCRYPT_HOST: dev.gabber.audio
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
