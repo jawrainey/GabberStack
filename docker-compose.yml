@@ -61,7 +61,7 @@ services:
       - mysql.env
   
   main-api:
-    image: gabber/api:0.0.1-beta
+    image: gabber/api:0.0.02-beta
     restart: unless-stopped
     container_name: main-api
     environment:
@@ -86,7 +86,7 @@ services:
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
 
   dev-api:
-    image: gabber/api:0.0.1-beta
+    image: gabber/api:0.0.02-beta
     restart: unless-stopped
     container_name: dev-api
     environment:
@@ -110,7 +110,7 @@ services:
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
 
   ifrc-api:
-    image: gabber/api:0.0.1-beta
+    image: gabber/api:0.0.02-beta
     restart: unless-stopped
     container_name: ifrc-api
     environment:
