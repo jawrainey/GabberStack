@@ -19,6 +19,7 @@ services:
       - ./nginx/vhostd:/etc/nginx/vhost.d
       - ./html:/usr/share/nginx/html
       - ./certs:/etc/nginx/certs:ro
+      - ./redirs.conf:/etc/nginx/conf.d/redirs.conf
       - ./common.conf:/etc/nginx/common.conf:ro
 
   nginx-gen:
