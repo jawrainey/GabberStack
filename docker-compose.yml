@@ -60,7 +60,7 @@ services:
     command: '--character-set-server=utf8 --collation-server=utf8_unicode_ci'
     env_file:
       - mysql.env
-  
+
   main-api:
     image: gabber/api:0.0.02-beta
     restart: unless-stopped
@@ -112,7 +112,7 @@ services:
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
 
   ifrc-api:
-    image: gabber/api:0.0.02-beta
+    image: gabber/api:0.0.03-beta
     restart: unless-stopped
     container_name: ifrc-api
     environment:
@@ -125,7 +125,7 @@ services:
       - mysql
 
   ifrc-web:
-    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.16
+    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.20
     restart: unless-stopped
     container_name: ifrc-web
     environment:
