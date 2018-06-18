@@ -87,7 +87,7 @@ services:
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
 
   dev-api:
-    image: gabber/api:0.0.02-beta
+    image: gabber/api:0.0.04-beta
     restart: unless-stopped
     container_name: dev-api
     environment:
@@ -100,7 +100,7 @@ services:
       - mysql
 
   dev-web:
-    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.19
+    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.21
     restart: unless-stopped
     container_name: dev-web
     environment:
