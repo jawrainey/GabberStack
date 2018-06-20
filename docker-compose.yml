@@ -62,7 +62,7 @@ services:
       - mysql.env
 
   main-api:
-    image: gabber/api:0.0.02-beta
+    image: gabber/api:0.0.7-beta
     restart: unless-stopped
     container_name: main-api
     environment:
@@ -75,19 +75,22 @@ services:
       - mysql
 
   main-web:
-    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.16
+    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.23
     restart: unless-stopped
     container_name: main-web
     environment:
-      CONFIG_KEYS: API_URL,COMING_SOON
+      CONFIG_KEYS: API_URL, ANALYTICS_ID, ANDROID_URL, IOS_APP_ID, IOS_URL
       API_URL: https://api.gabber.audio/api
-      COMING_SOON: 'true'
+      ANALYTICS_ID: UA-31608066-2
+      ANDROID_URL: uk.ac.ncl.openlab.gabber
+      IOS_APP_ID: 1356509623
+      IOS_URL: gabber/id1356509623
       VIRTUAL_HOST: gabber.audio
       LETSENCRYPT_HOST: gabber.audio
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
 
   dev-api:
-    image: gabber/api:0.0.06-beta
+    image: gabber/api:0.0.07-beta
     restart: unless-stopped
     container_name: dev-api
     environment:
@@ -100,13 +103,16 @@ services:
       - mysql
 
   dev-web:
-    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.22
+    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.23
     restart: unless-stopped
     container_name: dev-web
     environment:
-      CONFIG_KEYS: API_URL,IOS_APP_ID
+      CONFIG_KEYS: API_URL, ANALYTICS_ID, ANDROID_URL, IOS_APP_ID, IOS_URL
       API_URL: https://api.dev.gabber.audio/api
+      ANALYTICS_ID: UA-31608066-2
+      ANDROID_URL: uk.ac.ncl.openlab.dev.gabber
       IOS_APP_ID: 1356509623
+      IOS_URL: gabber/id1356509623
       VIRTUAL_HOST: dev.gabber.audio
       LETSENCRYPT_HOST: dev.gabber.audio
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
@@ -129,9 +135,12 @@ services:
     restart: unless-stopped
     container_name: ifrc-web
     environment:
-      CONFIG_KEYS: API_URL,ANALYTICS_ID
+      CONFIG_KEYS: API_URL, ANALYTICS_ID, ANDROID_URL, IOS_APP_ID, IOS_URL
       API_URL: https://api.ifrc.gabber.audio/api
       ANALYTICS_ID: UA-85374573-14
+      ANDROID_URL: uk.ac.ncl.openlab.ifrc.gabber
+      IOS_APP_ID: 1387310844
+      IOS_URL: gabber-ifrc/id1387310844
       VIRTUAL_HOST: ifrc.gabber.audio
       LETSENCRYPT_HOST: ifrc.gabber.audio
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
