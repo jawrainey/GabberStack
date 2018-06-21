@@ -103,11 +103,11 @@ services:
       - mysql
 
   dev-web:
-    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.23
+    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.0-beta.24
     restart: unless-stopped
     container_name: dev-web
     environment:
-      CONFIG_KEYS: API_URL, ANALYTICS_ID, ANDROID_URL, IOS_APP_ID, IOS_URL
+      CONFIG_KEYS: API_URL, ANALYTICS_ID, ANDROID_URL, DEV_MODE, IOS_APP_ID, IOS_URL
       API_URL: https://api.dev.gabber.audio/api
       ANALYTICS_ID: UA-31608066-2
       ANDROID_URL: uk.ac.ncl.openlab.dev.gabber
