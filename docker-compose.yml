@@ -111,6 +111,7 @@ services:
       API_URL: https://api.dev.gabber.audio/api
       ANALYTICS_ID: UA-31608066-2
       ANDROID_URL: uk.ac.ncl.openlab.dev.gabber
+      DEV_MODE: 'true'
       IOS_APP_ID: 1356509623
       IOS_URL: gabber/id1356509623
       VIRTUAL_HOST: dev.gabber.audio
