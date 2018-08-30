@@ -145,3 +145,18 @@ services:
       VIRTUAL_HOST: ifrc.gabber.audio
       LETSENCRYPT_HOST: ifrc.gabber.audio
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
+
+  talk-futures-web:
+    image: openlab.ncl.ac.uk:4567/gabber/web:talk-futures-pre-reg
+    restart: unless-stopped
+    container_name: talk-futures-web
+    environment:
+      CONFIG_KEYS: API_URL, ANALYTICS_ID, ANDROID_URL, IOS_APP_ID, IOS_URL
+      API_URL: https://api.talk.future-rcrc.com/api
+      ANALYTICS_ID: UA-85374573-14
+      ANDROID_URL: uk.ac.ncl.openlab.ifrc.gabber
+      IOS_APP_ID: 1387310844
+      IOS_URL: gabber-ifrc/id1387310844
+      VIRTUAL_HOST: talk.future-rcrc
+      LETSENCRYPT_HOST: talk.future-rcrc.com
+      LETSENCRYPT_EMAIL: talk@future-rcrc.com
