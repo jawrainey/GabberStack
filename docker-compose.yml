@@ -90,7 +90,7 @@ services:
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
 
   dev-api:
-    image: gabber/api:0.0.7-beta
+    image: gabber/api:0.0.8-beta
     restart: unless-stopped
     container_name: dev-api
     environment:
@@ -147,14 +147,15 @@ services:
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
 
   talk-futures-web:
-    image: openlab.ncl.ac.uk:4567/gabber/web:talk-futures-pre-reg
+    image: openlab.ncl.ac.uk:4567/gabber/web:tf-0.0.1-b
     restart: unless-stopped
     container_name: talk-futures-web
     environment:
-      CONFIG_KEYS: API_URL, ANALYTICS_ID, ANDROID_URL, IOS_APP_ID, IOS_URL
-      API_URL: https://api.talk.future-rcrc.com/api
+      CONFIG_KEYS: API_URL, ANALYTICS_ID, ANDROID_URL, COMING_SOON, IOS_APP_ID, IOS_URL
+      API_URL: https://api.dev.gabber.audio/api
       ANALYTICS_ID: UA-85374573-14
       ANDROID_URL: uk.ac.ncl.openlab.ifrc.gabber
+      COMING_SOON: 'true'
       IOS_APP_ID: 1387310844
       IOS_URL: gabber-ifrc/id1387310844
       VIRTUAL_HOST: talk.future-rcrc.com
