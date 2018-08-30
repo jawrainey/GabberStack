@@ -157,6 +157,6 @@ services:
       ANDROID_URL: uk.ac.ncl.openlab.ifrc.gabber
       IOS_APP_ID: 1387310844
       IOS_URL: gabber-ifrc/id1387310844
-      VIRTUAL_HOST: talk.future-rcrc
+      VIRTUAL_HOST: talk.future-rcrc.com
       LETSENCRYPT_HOST: talk.future-rcrc.com
       LETSENCRYPT_EMAIL: talk@future-rcrc.com
