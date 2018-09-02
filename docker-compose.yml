@@ -147,7 +147,7 @@ services:
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
 
   talk-futures-web:
-    image: openlab.ncl.ac.uk:4567/gabber/web:tf-0.0.3-b
+    image: openlab.ncl.ac.uk:4567/gabber/web:tf-0.0.4-b
     restart: unless-stopped
     container_name: talk-futures-web
     environment:
