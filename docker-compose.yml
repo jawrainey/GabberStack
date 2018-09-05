@@ -137,7 +137,7 @@ services:
     container_name: talk-futures-web
     environment:
       CONFIG_KEYS: API_URL, ANALYTICS_ID, ANDROID_URL, COMING_SOON, IOS_APP_ID, IOS_URL
-      API_URL: https://api.dev.gabber.audio/api
+      API_URL: https://api.talk.future-rcrc.com/api
       ANALYTICS_ID: UA-125029120-1
       ANDROID_URL: uk.ac.ncl.openlab.ifrc.gabber
       COMING_SOON: 'true'
