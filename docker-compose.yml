@@ -132,7 +132,7 @@ services:
       - mysql
 
   talk-futures-web:
-    image: gabber/web:tf-0.0.10-b
+    image: gabber/web:tf-0.0.11-b
     restart: unless-stopped
     container_name: talk-futures-web
     environment:
