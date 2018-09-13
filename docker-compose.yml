@@ -119,7 +119,7 @@ services:
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
 
   talk-futures-api:
-    image: gabber/api:0.0.9-beta
+    image: gabber/api:0.0.1-tf
     restart: unless-stopped
     container_name: talk-futures-api
     environment:
