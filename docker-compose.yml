@@ -119,7 +119,7 @@ services:
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
 
   talk-futures-api:
-    image: talkfutures/api:0.0.01
+    image: talkfutures/api:0.0.02
     restart: unless-stopped
     container_name: talk-futures-api
     environment:
@@ -132,14 +132,14 @@ services:
       - mysql
 
   talk-futures-web:
-    image: gabber/web:tf-0.0.11-b
+    image: gabber/web:0.0.02-tf
     restart: unless-stopped
     container_name: talk-futures-web
     environment:
       CONFIG_KEYS: API_URL, ANALYTICS_ID, ANDROID_URL, COMING_SOON, IOS_APP_ID, IOS_URL
       API_URL: https://api.future-rcrc.com/api
       ANALYTICS_ID: UA-125029120-1
-      ANDROID_URL: uk.ac.ncl.openlab.ifrc.gabber
+      ANDROID_URL: uk.ac.ncl.openlab.talkfutures
       COMING_SOON: 'true'
       IOS_APP_ID: 1387310844
       IOS_URL: gabber-ifrc/id1387310844
