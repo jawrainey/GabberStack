@@ -132,7 +132,7 @@ services:
       - mysql
 
   talk-futures-web:
-    image: gabber/web:0.0.02-tf
+    image: openlab.ncl.ac.uk:4567/gabber/web:tf-email-live
     restart: unless-stopped
     container_name: talk-futures-web
     environment:
