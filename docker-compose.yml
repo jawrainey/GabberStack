@@ -140,7 +140,7 @@ services:
       API_URL: https://api.future-rcrc.com/api
       ANALYTICS_ID: UA-125029120-1
       ANDROID_URL: uk.ac.ncl.openlab.talkfutures
-      COMING_SOON: 'true'
+      COMING_SOON: ''
       IOS_APP_ID: 1436172223
       IOS_URL: talkfutures/id1436172223
       VIRTUAL_HOST: talk.future-rcrc.com
