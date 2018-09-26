@@ -146,3 +146,12 @@ services:
       VIRTUAL_HOST: talk.future-rcrc.com
       LETSENCRYPT_HOST: talk.future-rcrc.com
       LETSENCRYPT_EMAIL: talk@future-rcrc.com
+
+  backup:
+    image: schickling/mysql-backup-s3
+    restart: always
+    env_file:
+      - backup.env
+    environment:
+      - MYSQL_HOST=mysql
+      - SCHEDULE=@daily
