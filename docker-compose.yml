@@ -150,6 +150,7 @@ services:
   backup:
     image: schickling/mysql-backup-s3
     restart: always
+    container_name: db-backup
     env_file:
       - backup.env
     environment:
