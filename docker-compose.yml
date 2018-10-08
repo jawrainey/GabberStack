@@ -119,7 +119,7 @@ services:
       LETSENCRYPT_EMAIL: gabber@jawrainey.me
 
   talk-futures-api:
-    image: talkfutures/api:tfl-0.0.6
+    image: talkfutures/api:tfl-0.0.7
     restart: unless-stopped
     container_name: talk-futures-api
     environment:
@@ -132,7 +132,7 @@ services:
       - mysql
 
   talk-futures-web:
-    image: openlab.ncl.ac.uk:4567/gabber/web:tfl-0.0.6.2
+    image: openlab.ncl.ac.uk:4567/gabber/web:tfl-0.0.6.3
     restart: unless-stopped
     container_name: talk-futures-web
     environment:
