@@ -103,7 +103,7 @@ services:
       - mysql
 
   dev-web:
-    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.6-tfm
+    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.7-tfm
     restart: unless-stopped
     container_name: dev-web
     environment:
