@@ -62,7 +62,7 @@ services:
       - mysql.env
 
   main-api:
-    image: openlab.ncl.ac.uk:4567/gabber/api:1.0.2-beta
+    image: openlab.ncl.ac.uk:4567/gabber/api:1.0.2-pl-beta
     restart: unless-stopped
     container_name: main-api
     environment:
@@ -75,7 +75,7 @@ services:
       - mysql
 
   main-web:
-    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.1-beta
+    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.3-pl-beta
     restart: unless-stopped
     container_name: main-web
     environment:
