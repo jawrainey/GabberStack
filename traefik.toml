@@ -1,0 +1,30 @@
+[entryPoints]
+  [entryPoints.web]
+    address = ":80"
+
+  [entryPoints.web.http.redirections.entryPoint]
+    to = "websecure"
+    scheme = "https"
+
+  [entryPoints.websecure]
+    address = ":443"
+    # Prevents repeating tls=true and certresolver=leresolver labels
+    [entryPoints.websecure.http.tls]
+      certResolver = "leresolver"
+
+  [entryPoints.postgres]
+    address = ":5432"
+
+  [entryPoints.mysql]
+    address = ":3306"
+
+[certificatesResolvers.leresolver.acme]
+  email = "admin@gabber.audio"
+  tlschallenge = "true"
+  storage = "acme.json"
+  [certificatesResolvers.leresolver.acme.tlsChallenge]
+    # Prevents repeating label in each container
+    entryPoint = "websecure"
+
+[providers.docker]
+  network = "web"

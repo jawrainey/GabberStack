@@ -2,3 +2,4 @@
 /certs
 /logs
 /*.env
+*.json

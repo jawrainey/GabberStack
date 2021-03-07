@@ -3,149 +3,108 @@ version: '3.5'
 volumes:
   mysql_data:
 
+networks:
+  web:
+    external: true
+  database:
+    external: false
+
 services:
-
-  nginx:
-    container_name: nginx
-    image: nginx:alpine
-    restart: always
-    labels:
-      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
+  traefik:
+    image: traefik:v2.4
+    restart: unless-stopped
+    container_name: traefik
+    networks:
+      - web
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
     volumes:
-      - ./nginx/confd:/etc/nginx/conf.d
-      - ./nginx/vhostd:/etc/nginx/vhost.d
-      - ./html:/usr/share/nginx/html
-      - ./certs:/etc/nginx/certs:ro
-      - ./redirs.conf:/etc/nginx/conf.d/redirs.conf
-      - ./common.conf:/etc/nginx/common.conf:ro
-
-  nginx-gen:
-    container_name: nginx-gen
-    image: jwilder/docker-gen
-    restart: always
-    volumes:
-      - ./nginx/confd:/etc/nginx/conf.d
-      - ./nginx/vhostd:/etc/nginx/vhost.d
-      - ./html:/usr/share/nginx/html
-      - ./certs:/etc/nginx/certs:ro
-      - ./nginx.tmpl.conf:/etc/docker-gen/templates/nginx.tmpl:ro
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-    command: '-notify-sighup nginx -watch -wait 5s:30s /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf'
-
-  letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    container_name: letsencrypt
-    restart: always
-    environment:
-      NGINX_DOCKER_GEN_CONTAINER: nginx-gen
-      NGINX_PROXY_CONTAINER: nginx
-    volumes:
-      - ./nginx/confd:/etc/nginx/conf.d
-      - ./nginx/vhostd:/etc/nginx/vhost.d
-      - ./html:/usr/share/nginx/html
-      - ./certs:/etc/nginx/certs:rw
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - "./traefik.toml:/traefik.toml"
+      - "./acme.json:/acme.json"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   mysql:
     image: mysql:latest
-    container_name: mysql
     restart: unless-stopped
+    container_name: mysql
+    env_file: mysql.env
+    networks:
+      - database
     ports:
       - 3306:3306
     volumes:
       - mysql_data:/var/lib/mysql
     command: '--character-set-server=utf8 --collation-server=utf8_unicode_ci'
-    env_file:
-      - mysql.env
 
   main-api:
     image: openlab.ncl.ac.uk:4567/gabber/api:1.0.2-pl-beta
     restart: unless-stopped
     container_name: main-api
-    environment:
-      WEB_HOST: https://gabber.audio
-      VIRTUAL_HOST: api.gabber.audio
-      LETSENCRYPT_HOST: api.gabber.audio
-      LETSENCRYPT_EMAIL: gabber@jawrainey.me
-    env_file: gabber-main.env
-    links:
-      - mysql
+    env_file: gabber-main-api.env
+    networks:
+      - web
+      - database
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mainapi.rule=Host(`api.gabber.audio`)"
 
   main-web:
-    image: openlab.ncl.ac.uk:4567/gabber/web:1.0.3-pl-beta
+    image: openlab.ncl.ac.uk:4567/gabber/web:0.0.3-pl
     restart: unless-stopped
     container_name: main-web
-    environment:
-      CONFIG_KEYS: API_URL, ANALYTICS_ID, ANDROID_URL, IOS_APP_ID, IOS_URL
-      API_URL: https://api.gabber.audio/api
-      ANALYTICS_ID: UA-31608066-2
-      ANDROID_URL: uk.ac.ncl.openlab.gabber
-      IOS_APP_ID: 1356509623
-      IOS_URL: gabber/id1356509623
-      VIRTUAL_HOST: gabber.audio
-      LETSENCRYPT_HOST: gabber.audio
-      LETSENCRYPT_EMAIL: gabber@jawrainey.me
+    env_file: gabber-main-web.env
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mainweb.rule=Host(`gabber.audio`)"
 
   dev-api:
-    image: gabber/api:1.0.2-beta
+    image: openlab.ncl.ac.uk:4567/gabber/api:1.0.2-pl-beta
     restart: unless-stopped
     container_name: dev-api
-    environment:
-      WEB_HOST: https://dev.gabber.audio
-      VIRTUAL_HOST: api.dev.gabber.audio
-      LETSENCRYPT_HOST: api.dev.gabber.audio
-      LETSENCRYPT_EMAIL: gabber@jawrainey.me
-    env_file: gabber-dev.env
-    links:
-      - mysql
+    env_file: gabber-dev-api.env
+    networks:
+      - web
+      - database
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.devapi.rule=Host(`api.dev.gabber.audio`)"
 
   dev-web:
     image: openlab.ncl.ac.uk:4567/gabber/web:1.0.2-beta
     restart: unless-stopped
     container_name: dev-web
-    environment:
-      CONFIG_KEYS: API_URL, ANALYTICS_ID, ANDROID_URL, DEV_MODE, IOS_APP_ID, IOS_URL
-      API_URL: https://api.dev.gabber.audio/api
-      ANALYTICS_ID: UA-31608066-2
-      ANDROID_URL: uk.ac.ncl.openlab.dev.gabber
-      DEV_MODE: 'true'
-      IOS_APP_ID: 1356509623
-      IOS_URL: gabber/id1356509623
-      VIRTUAL_HOST: dev.gabber.audio
-      LETSENCRYPT_HOST: dev.gabber.audio
-      LETSENCRYPT_EMAIL: gabber@jawrainey.me
+    env_file: gabber-dev-web.env
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.devweb.rule=Host(`dev.gabber.audio`)"
 
   talk-futures-api:
     image: talkfutures/api:tfl-0.0.7
     restart: unless-stopped
     container_name: talk-futures-api
-    environment:
-      WEB_HOST: https://talk.future-rcrc.com
-      VIRTUAL_HOST: api.future-rcrc.com
-      LETSENCRYPT_HOST: api.future-rcrc.com
-      LETSENCRYPT_EMAIL: talk@future-rcrc.com
-    env_file: talk-futures.env
-    links:
-      - mysql
+    env_file: tfapi.env
+    networks:
+      - web
+      - database
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tfapi.rule=Host(`api.tf.gabber.audio`)"
 
   talk-futures-web:
     image: openlab.ncl.ac.uk:4567/gabber/web:tfl-0.1.4
     restart: unless-stopped
     container_name: talk-futures-web
-    environment:
-      CONFIG_KEYS: API_URL, ANALYTICS_ID, ANDROID_URL, COMING_SOON, IOS_APP_ID, IOS_URL
-      API_URL: https://api.future-rcrc.com/api
-      ANALYTICS_ID: UA-125029120-1
-      ANDROID_URL: uk.ac.ncl.openlab.talkfutures
-      COMING_SOON: ''
-      IOS_APP_ID: 1436172223
-      IOS_URL: talkfutures/id1436172223
-      VIRTUAL_HOST: talk.future-rcrc.com
-      LETSENCRYPT_HOST: talk.future-rcrc.com
-      LETSENCRYPT_EMAIL: talk@future-rcrc.com
+    env_file: tfweb.env
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tfweb.rule=Host(`tf.gabber.audio`)"
 
   backup:
     image: schickling/mysql-backup-s3
